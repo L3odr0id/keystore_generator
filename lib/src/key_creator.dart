@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:keystore_generator/src/pretty_log.dart';
 
+import 'constants.dart';
+
 class KeyCreator {
   final String alias;
   final String password;
@@ -16,6 +18,14 @@ class KeyCreator {
     if (!dir.existsSync()) {
       dir.createSync();
     }
+
+    final file = File('./keys/$KEYSTORE_NAME');
+    if (file.existsSync()) {
+      throw PrettyLogger.log(
+        'Be careful! ${Directory.current.absolute}/keys/$KEYSTORE_NAME already exists! Do you want to overwrite it?',
+      );
+      // file.deleteSync(); // TODO предусмотреть флаг перезаписи
+    }
   }
 
   // keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000
@@ -26,7 +36,7 @@ class KeyCreator {
       '-genkey',
       '-v',
       '-keystore',
-      './keys/upload-keystore.keystore',
+      './keys/$KEYSTORE_NAME',
       '-alias',
       alias,
       '-keypass',

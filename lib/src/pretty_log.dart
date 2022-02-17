@@ -1,7 +1,7 @@
 abstract class PrettyLogger {
   static String log(String info) {
-    return divider + info + divider;
+    return _divider + info + _divider;
   }
 
-  static const String divider = '\n------\n';
+  static const String _divider = '\n------\n';
 }
