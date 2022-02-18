@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:keystore_generator/src/arg_parser.dart';
+import 'package:keystore_generator/src/gradle_modifier.dart';
 import 'package:keystore_generator/src/key_creator.dart';
 import 'package:keystore_generator/src/key_properties_creator.dart';
 
@@ -30,5 +31,5 @@ Future<void> main(List<String> args) async {
   propertiesBuilder.createFile();
 
   // write signins config to build.gradle
-  
+  GradleModifier.addSigningConfigStuff();
 }
