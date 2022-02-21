@@ -1,10 +1,10 @@
 import 'package:keystore_generator/src/pretty_log.dart';
 
 ///Make sure that the login and password arguments are passed
-class ArgParser {
+class Arguments {
   final List<String> args;
 
-  const ArgParser({
+  const Arguments({
     required this.args,
   });
 
