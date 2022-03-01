@@ -21,7 +21,7 @@ class KeyCreator {
 
     final file = File('./keys/$KEYSTORE_NAME');
     if (file.existsSync()) {
-      throw PrettyLogger.logError(
+      throw PrettyLogger.log(
         'Be careful! ${Directory.current.absolute}/keys/$KEYSTORE_NAME already exists! Do you want to overwrite it?',
       );
       // file.deleteSync(); // TODO предусмотреть флаг перезаписи
@@ -52,10 +52,11 @@ class KeyCreator {
       '-dname',
       'CN=ClientName, OU=OrganizationUnit, O=Organization, L=Locality, S=State, C=CountryCode',
     ]);
-
-    if (res is String) {
+    // print('KEY CREATOR exit code: ${res.exitCode}');
+    if (res.stdout is String && (res.stdout as String).isNotEmpty) {
       throw PrettyLogger.logError(
-        'Error while creating a keystore. \nOutput:${res.stdout}',
+        'Bad keystore creating operation',
+        moreInfo: res.stdout,
       );
     }
   }

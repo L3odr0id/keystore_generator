@@ -16,8 +16,16 @@ if (keystorePropertiesFile.exists()) {
     // TODO Не менять градл, если уже есть
     _checkIfExists();
     final List<String> lines = _getLines();
+    lines.insert(0, _keyLines);
+
+    final linesToWrite = List<String>.generate(
+      lines.length,
+      (i) => lines[i] + '\n',
+    );
+    write(linesToWrite.join());
+
     for (var line in lines) {
-      print(line);
+      // print(line);
     }
     final b = 1 + 1;
   }
@@ -35,5 +43,10 @@ if (keystorePropertiesFile.exists()) {
   static List<String> _getLines() {
     final file = File('./android/app/build.gradle');
     return file.readAsLinesSync();
+  }
+
+  static write(String content) {
+    final file = File('./android/app/build.gradle');
+    file.writeAsStringSync(content);
   }
 }
