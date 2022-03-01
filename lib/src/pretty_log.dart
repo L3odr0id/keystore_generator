@@ -1,4 +1,12 @@
 abstract class PrettyLogger {
+  static String logInfo(String msg, {String moreInfo = ''}) {
+    final String info = 'Info: $msg';
+    return log(
+      info,
+      moreInfo: moreInfo,
+    );
+  }
+
   static String logWarning(String msg, {String moreInfo = ''}) {
     final String info = 'Warning: $msg';
     return log(

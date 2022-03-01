@@ -16,7 +16,8 @@ if (keystorePropertiesFile.exists()) {
     // TODO Не менять градл, если уже есть
     _checkIfExists();
     final List<String> lines = _getLines();
-    lines.insert(0, _keyLines);
+
+    addKeystorePropertiesVar(lines);
 
     final linesToWrite = List<String>.generate(
       lines.length,
@@ -28,6 +29,19 @@ if (keystorePropertiesFile.exists()) {
       // print(line);
     }
     final b = 1 + 1;
+  }
+
+  static void addKeystorePropertiesVar(List<String> lines) {
+    if (lines.contains(
+        "def keystorePropertiesFile = rootProject.file('key.properties')")) {
+      print(
+        PrettyLogger.logInfo(
+          'You already have keystorePropertiesFile configuration in build.gradle',
+        ),
+      );
+      return;
+    }
+    lines.insert(0, _keyLines);
   }
 
   /// is build.gradle exists
