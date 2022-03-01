@@ -1,7 +1,16 @@
 abstract class PrettyLogger {
-  static String log(String info) {
-    return _divider + info + _divider;
+  static String logError(String msg) {
+    final String info = 'Error: $msg';
+    return '\n╔' +
+        _divider(info) +
+        '╗\n║ ' +
+        info +
+        ' ║\n╚' +
+        _divider(info) +
+        '╝\n';
   }
 
-  static const String _divider = '\n------\n';
+  static String _divider(String stringToWrap) {
+    return '═' * (stringToWrap.length + 2);
+  }
 }

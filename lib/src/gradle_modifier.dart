@@ -22,10 +22,11 @@ if (keystorePropertiesFile.exists()) {
     final b = 1 + 1;
   }
 
+  /// is build.gradle exists
   static void _checkIfExists() {
     final file = File('./android/app/build.gradle');
     if (!file.existsSync()) {
-      throw PrettyLogger.log(
+      throw PrettyLogger.logError(
         '${Directory.current.absolute}/android/app/build.gradle does not exist',
       );
     }

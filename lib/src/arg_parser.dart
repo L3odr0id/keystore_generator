@@ -11,10 +11,10 @@ class Arguments {
   String _getValueByOption(String option) {
     final pos = args.indexOf(option);
     if (pos == -1) {
-      throw PrettyLogger.log('Option $option not found');
+      throw PrettyLogger.logError('Option $option not found');
     }
     if (args.length <= pos + 1) {
-      throw PrettyLogger.log('Option $option was not provided');
+      throw PrettyLogger.logError('Option $option was not provided');
     }
     return args[pos + 1];
   }

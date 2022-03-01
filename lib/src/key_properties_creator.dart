@@ -22,7 +22,7 @@ class KeyPropertiesBuilder {
     // check if directory exists
     final dir = Directory('./android');
     if (!dir.existsSync()) {
-      throw PrettyLogger.log(
+      throw PrettyLogger.logError(
         'Error: "android" folder was not found in ${Directory.current.absolute}',
       );
     }
