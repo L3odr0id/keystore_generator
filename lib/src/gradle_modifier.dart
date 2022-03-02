@@ -82,7 +82,7 @@ if (keystorePropertiesFile.exists()) {
     // find config line
     for (int i = 0; i < lines.length; ++i) {
       if (lines[i].contains('signingConfig signingConfigs.debug')) {
-        lines[i].replaceAll('debug', 'release');
+        lines[i] = lines[i].replaceAll('debug', 'release');
         changed = true;
       }
     }
