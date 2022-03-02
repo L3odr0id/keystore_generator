@@ -1,48 +1,43 @@
 import 'dart:io';
 
+import 'package:keystore_generator/src/arguments.dart';
+import 'package:keystore_generator/src/overridable_file.dart';
 import 'package:keystore_generator/src/pretty_log.dart';
 
 import 'constants.dart';
+import 'guaranteed_dir.dart';
 
-class KeyCreator {
-  final String alias;
-  final String password;
-
-  const KeyCreator({
-    required this.alias,
-    required this.password,
+class Keystore {
+  final Arguments arguments;
+  const Keystore({
+    required this.arguments,
   });
 
-  void _createKeyDir() {
-    final dir = Directory('keys');
-    if (!dir.existsSync()) {
-      dir.createSync();
-    }
-
-    final file = File('./keys/$KEYSTORE_NAME');
-    if (file.existsSync()) {
-      throw PrettyLogger.log(
-        'Be careful! ${Directory.current.absolute}/keys/$KEYSTORE_NAME already exists! Do you want to overwrite it?',
-      );
-      // file.deleteSync(); // TODO предусмотреть флаг перезаписи
-    }
-  }
+  final keystorePath = './keys/$KEYSTORE_NAME';
 
   // keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000
   Future<void> create() async {
-    _createKeyDir();
+    GuaranteedDir(
+      dirName: 'keys',
+      needAlert: false,
+    ).makeDir();
+
+    OptionalOverridableFile(
+      path: keystorePath,
+      arguments: arguments,
+    ).check();
 
     final res = await Process.run('keytool', [
       '-genkey',
       '-v',
       '-keystore',
-      './keys/$KEYSTORE_NAME',
+      keystorePath,
       '-alias',
-      alias,
+      arguments.alias,
       '-keypass',
-      password,
+      arguments.password,
       '-storepass',
-      password,
+      arguments.password,
       '-keyalg',
       'RSA',
       '-keysize',
@@ -54,10 +49,10 @@ class KeyCreator {
     ]);
     // print('KEY CREATOR exit code: ${res.exitCode}');
     if (res.stdout is String && (res.stdout as String).isNotEmpty) {
-      throw PrettyLogger.logError(
-        'Bad keystore creating operation',
+      throw LogError(
+        info: 'Bad keystore creating operation',
         moreInfo: res.stdout,
-      );
+      ).decoratedMessage();
     }
   }
 }

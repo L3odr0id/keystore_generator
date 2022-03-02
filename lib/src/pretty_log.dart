@@ -1,40 +1,53 @@
-abstract class PrettyLogger {
-  static String logInfo(String msg, {String moreInfo = ''}) {
-    final String info = 'Info: $msg';
-    return log(
-      info,
-      moreInfo: moreInfo,
-    );
-  }
+class Log {
+  final String info;
+  final String moreInfo;
+  const Log({
+    required this.info,
+    this.moreInfo = '',
+  });
 
-  static String logWarning(String msg, {String moreInfo = ''}) {
-    final String info = 'Warning: $msg';
-    return log(
-      info,
-      moreInfo: moreInfo,
-    );
-  }
-
-  static String log(String info, {String moreInfo = ''}) {
+  String decoratedMessage() {
     return '\n╔' +
-        _divider(info) +
+        divider(info) +
         '╗\n║ ' +
         info +
         ' ║\n╚' +
-        _divider(info) +
+        divider(info) +
         '╝\n' +
         moreInfo;
   }
 
-  static String logError(String msg, {String moreInfo = ''}) {
-    final String info = 'Error: $msg';
-    return log(
-      info,
-      moreInfo: moreInfo,
-    );
-  }
-
-  static String _divider(String stringToWrap) {
+  String divider(String stringToWrap) {
     return '═' * (stringToWrap.length + 2);
   }
+}
+
+class LogError extends Log {
+  const LogError({
+    required String info,
+    String moreInfo = '',
+  }) : super(
+          info: 'Error: $info',
+          moreInfo: moreInfo,
+        );
+}
+
+class LogWarning extends Log {
+  const LogWarning({
+    required String info,
+    String moreInfo = '',
+  }) : super(
+          info: 'Warning: $info',
+          moreInfo: moreInfo,
+        );
+}
+
+class LogInfo extends Log {
+  const LogInfo({
+    required String info,
+    String moreInfo = '',
+  }) : super(
+          info: 'Info: $info',
+          moreInfo: moreInfo,
+        );
 }
