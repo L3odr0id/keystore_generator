@@ -1,6 +1,6 @@
 name: keystore_generator
-description: A new Flutter package project.
-version: 0.0.1
+description: A utility that creates a keystore and modifies build.gradle. It accepts login and password as arguments.
+version: 1.0.0
 homepage:
 
 environment:

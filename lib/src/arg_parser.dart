@@ -21,4 +21,5 @@ class Arguments {
 
   String get alias => _getValueByOption('-a');
   String get password => _getValueByOption('-p');
+  bool get overwriteFlag => args.contains('-y');
 }
