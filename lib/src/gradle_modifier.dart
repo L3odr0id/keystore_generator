@@ -11,6 +11,18 @@ if (keystorePropertiesFile.exists()) {
 }
 """;
 
+  static const String _signingConfigLines = """
+
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+""";
+
   /// adds lines to enable release gradle config
   static void addSigningConfigStuff() {
     // TODO Не менять градл, если уже есть
@@ -18,6 +30,8 @@ if (keystorePropertiesFile.exists()) {
     final List<String> lines = _getLines();
 
     addKeystorePropertiesVar(lines);
+    addReleaseBuildConfig(lines);
+    setReleaseConfig(lines);
 
     final linesToWrite = List<String>.generate(
       lines.length,
@@ -26,7 +40,7 @@ if (keystorePropertiesFile.exists()) {
     write(linesToWrite.join());
 
     for (var line in lines) {
-      // print(line);
+      // print(line + '${line.contains('signingConfig signingConfigs.debug')}');
     }
     final b = 1 + 1;
   }
@@ -43,6 +57,45 @@ if (keystorePropertiesFile.exists()) {
     }
     lines.insert(0, _keyLines);
   }
+
+  static void addReleaseBuildConfig(List<String> lines) {
+    // find place to insert [_signingConfigLines]
+    int indexOfBuildTypes = -1;
+    for (int i = 0; i < lines.length; ++i) {
+      if (lines[i].contains('buildTypes {')) {
+        indexOfBuildTypes = i;
+      }
+    }
+
+    // check if found
+    if (indexOfBuildTypes == -1) {
+      throw PrettyLogger.logError(
+        'Impossible to find "buildTypes {" in build.gradle',
+      );
+    }
+
+    lines.insert(indexOfBuildTypes, _signingConfigLines);
+  }
+
+  static void setReleaseConfig(List<String> lines) {
+    bool changed = false;
+    // find config line
+    for (int i = 0; i < lines.length; ++i) {
+      if (lines[i].contains('signingConfig signingConfigs.debug')) {
+        lines[i].replaceAll('debug', 'release');
+        changed = true;
+      }
+    }
+
+    // check if found
+    if (!changed) {
+      throw PrettyLogger.logWarning(
+        'Line "signingConfig signingConfigs.debug" was not found',
+      );
+    }
+  }
+
+  //signingConfig signingConfigs.debug
 
   /// is build.gradle exists
   static void _checkIfExists() {
