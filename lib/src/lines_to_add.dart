@@ -1,4 +1,4 @@
-import 'package:keystore_generator/src/pretty_log.dart';
+import 'package:keystore_generator/src/message.dart';
 
 mixin LinesToAdd {
   void addLines(List<String> lines);

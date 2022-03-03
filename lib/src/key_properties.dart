@@ -7,24 +7,22 @@ import 'package:keystore_generator/src/overridable_file.dart';
 import 'constants.dart';
 
 class KeyProperties {
+  final GuaranteedDir androidDir;
+  final KeyPropertiesFile keyPropertiesFile;
+
   const KeyProperties({
     required this.arguments,
+    required this.androidDir,
+    required this.keyPropertiesFile,
   });
 
   final Arguments arguments;
-  final String keyPropertiesPath = './android/key.properties';
 
   void create() {
-    GuaranteedDir(
-      dirName: './android',
-      needAlert: true,
-    ).makeDir();
+    androidDir.makeDir();
 
-    AlwaysOverridableFile(
-      path: keyPropertiesPath,
-    ).check();
-
-    File(keyPropertiesPath).writeAsStringSync(content);
+    keyPropertiesFile.check();
+    keyPropertiesFile.write(content);
   }
 
   String get content =>
@@ -32,4 +30,25 @@ class KeyProperties {
       'keyPassword=${arguments.password}\r\n' +
       'keyAlias=${arguments.alias}\r\n' +
       'storeFile=../../keys/$KEYSTORE_NAME\r\n';
+}
+
+class AndroidDir extends GuaranteedDir {
+  AndroidDir()
+      : super(
+          dirName: './android',
+          needAlert: true,
+        );
+}
+
+class KeyPropertiesFile extends AlwaysOverwritableFile {
+  static const String keyPropertiesPath = './android/key.properties';
+
+  KeyPropertiesFile()
+      : super(
+          path: keyPropertiesPath,
+        );
+
+  void write(String content) {
+    File(keyPropertiesPath).writeAsStringSync(content);
+  }
 }

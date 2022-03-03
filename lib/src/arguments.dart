@@ -1,4 +1,4 @@
-import 'package:keystore_generator/src/pretty_log.dart';
+import 'package:keystore_generator/src/message.dart';
 
 ///Make sure that the login and password arguments are passed
 class Arguments {

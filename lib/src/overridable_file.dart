@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:keystore_generator/src/arguments.dart';
-import 'package:keystore_generator/src/pretty_log.dart';
+import 'package:keystore_generator/src/message.dart';
 
-mixin OverridableFile {
+mixin OverwritableFile {
   void check();
 }
 
-class OptionalOverridableFile with OverridableFile {
-  const OptionalOverridableFile({
+class OptionalOverwritableFile with OverwritableFile {
+  const OptionalOverwritableFile({
     required this.path,
     required this.arguments,
   });
@@ -32,8 +32,8 @@ class OptionalOverridableFile with OverridableFile {
   }
 }
 
-class AlwaysOverridableFile with OverridableFile {
-  const AlwaysOverridableFile({
+class AlwaysOverwritableFile with OverwritableFile {
+  const AlwaysOverwritableFile({
     required this.path,
   });
 
@@ -48,8 +48,8 @@ class AlwaysOverridableFile with OverridableFile {
   }
 }
 
-class NonOverridableFile with OverridableFile {
-  const NonOverridableFile({
+class NonOverwritableFile with OverwritableFile {
+  const NonOverwritableFile({
     required this.path,
   });
 

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:keystore_generator/src/pretty_log.dart';
+import 'package:keystore_generator/src/message.dart';
 
 class GuaranteedDir {
   const GuaranteedDir({
