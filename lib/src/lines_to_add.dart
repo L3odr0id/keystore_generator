@@ -1,6 +1,6 @@
 import 'package:keystore_generator/src/message.dart';
 
-mixin LinesToAdd {
+abstract class LinesToAdd {
   void addLines(List<String> lines);
 }
 

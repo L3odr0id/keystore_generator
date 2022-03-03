@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:keystore_generator/src/arguments.dart';
 import 'package:keystore_generator/src/message.dart';
 
-mixin OverwritableFile {
+abstract class OverwritableFile {
   void check();
 }
 
