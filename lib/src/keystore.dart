@@ -34,7 +34,7 @@ class KeystoreFile extends OptionalOverwritableFile {
     required Arguments arguments,
   }) : super(
           path: filePath,
-          arguments: arguments,
+          overwriteFlag: arguments.overwriteFlag,
         );
 
   static const String filePath = './keys/$KEYSTORE_NAME';

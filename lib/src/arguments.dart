@@ -7,7 +7,7 @@ class Arguments {
   });
 
   final List<String> args;
-  final String overwriteOptionName = '-y';
+  static const String overwriteOptionName = '-y';
 
   String getValueByOption(String option) {
     final pos = args.indexOf(option);

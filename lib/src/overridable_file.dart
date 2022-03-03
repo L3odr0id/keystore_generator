@@ -4,51 +4,45 @@ import 'package:keystore_generator/src/arguments.dart';
 import 'package:keystore_generator/src/message.dart';
 
 abstract class OverwritableFile {
+  const OverwritableFile();
   void check();
 }
 
-class OptionalOverwritableFile with OverwritableFile {
+class OptionalOverwritableFile extends OverwritableFile {
   const OptionalOverwritableFile({
     required this.path,
-    required this.arguments,
+    required this.overwriteFlag,
   });
 
-  final Arguments arguments;
+  final bool overwriteFlag;
   final String path;
 
   @override
   void check() {
     final file = File(path);
     if (file.existsSync()) {
-      if (arguments.overwriteFlag) {
+      if (overwriteFlag) {
         file.deleteSync();
       } else {
         throw MessageInfo(
           info:
-              'File ${Directory.current.absolute.path}${path.substring(1)} already exists! Use ${arguments.overwriteOptionName} option if you want to override it',
+              'File ${Directory.current.absolute.path}${path.substring(1)} already exists! Use ${Arguments.overwriteOptionName} option if you want to override it',
         ).decoratedMessage();
       }
     }
   }
 }
 
-class AlwaysOverwritableFile with OverwritableFile {
+class AlwaysOverwritableFile extends OptionalOverwritableFile {
   const AlwaysOverwritableFile({
-    required this.path,
-  });
-
-  final String path;
-
-  @override
-  void check() {
-    final file = File(path);
-    if (file.existsSync()) {
-      file.deleteSync();
-    }
-  }
+    required String path,
+  }) : super(
+          path: path,
+          overwriteFlag: true,
+        );
 }
 
-class NonOverwritableFile with OverwritableFile {
+class NonOverwritableFile extends OverwritableFile {
   const NonOverwritableFile({
     required this.path,
   });
