@@ -1,6 +1,6 @@
 name: keystore_generator
 description: A utility that creates a keystore and modifies build.gradle. It accepts login and password as arguments.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/L3odr0id/keystore_generator
 
 environment:
