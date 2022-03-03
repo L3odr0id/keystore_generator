@@ -8,11 +8,11 @@ import 'constants.dart';
 import 'guaranteed_dir.dart';
 
 class Keystore {
-  final Arguments arguments;
   const Keystore({
     required this.arguments,
   });
 
+  final Arguments arguments;
   final keystorePath = './keys/$KEYSTORE_NAME';
 
   // keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000
@@ -49,7 +49,7 @@ class Keystore {
     ]);
     // print('KEY CREATOR exit code: ${res.exitCode}');
     if (res.stdout is String && (res.stdout as String).isNotEmpty) {
-      throw LogError(
+      throw messageError(
         info: 'Bad keystore creating operation',
         moreInfo: res.stdout,
       ).decoratedMessage();

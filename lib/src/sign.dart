@@ -5,20 +5,14 @@ import 'package:keystore_generator/src/keystore.dart';
 
 /// Main class
 class Sign {
-  final Keystore keystore;
-  final KeyProperties keyProperties;
-  final BuildGradle buildGradle;
+  Sign({required this.arguments});
 
-  Sign({
-    required this.keystore,
-    required this.keyProperties,
-    required this.buildGradle,
-  });
+  final Arguments arguments;
 
   /// Whole signing procedure
   void generate() {
-    keystore.create();
-    keyProperties.create();
-    buildGradle.modify();
+    Keystore(arguments: arguments).create();
+    KeyProperties(arguments: arguments).create();
+    BuildGradle().modify();
   }
 }

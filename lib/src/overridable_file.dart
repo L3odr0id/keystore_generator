@@ -8,13 +8,13 @@ mixin OverridableFile {
 }
 
 class OptionalOverridableFile with OverridableFile {
-  final String path;
-  final Arguments arguments;
-
   const OptionalOverridableFile({
     required this.path,
     required this.arguments,
   });
+
+  final Arguments arguments;
+  final String path;
 
   @override
   void check() {
@@ -23,7 +23,7 @@ class OptionalOverridableFile with OverridableFile {
       if (arguments.overwriteFlag) {
         file.deleteSync();
       } else {
-        throw LogInfo(
+        throw messageInfo(
           info:
               'File ${Directory.current.absolute.path}${path.substring(1)} already exists! Use ${arguments.overwriteOptionName} option if you want to override it',
         ).decoratedMessage();
@@ -33,11 +33,11 @@ class OptionalOverridableFile with OverridableFile {
 }
 
 class AlwaysOverridableFile with OverridableFile {
-  final String path;
-
   const AlwaysOverridableFile({
     required this.path,
   });
+
+  final String path;
 
   @override
   void check() {
@@ -49,17 +49,17 @@ class AlwaysOverridableFile with OverridableFile {
 }
 
 class NonOverridableFile with OverridableFile {
-  final String path;
-
   const NonOverridableFile({
     required this.path,
   });
+
+  final String path;
 
   @override
   void check() {
     final file = File(path);
     if (!file.existsSync()) {
-      throw LogError(
+      throw messageError(
         info:
             '${Directory.current.absolute.path}/${path.substring(1)} does not exist',
       ).decoratedMessage();

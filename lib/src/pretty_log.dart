@@ -1,10 +1,11 @@
-class Log {
-  final String info;
-  final String moreInfo;
-  const Log({
+class Message {
+  const Message({
     required this.info,
     this.moreInfo = '',
   });
+
+  final String info;
+  final String moreInfo;
 
   String decoratedMessage() {
     return '\n╔' +
@@ -22,8 +23,8 @@ class Log {
   }
 }
 
-class LogError extends Log {
-  const LogError({
+class messageError extends Message {
+  const messageError({
     required String info,
     String moreInfo = '',
   }) : super(
@@ -32,8 +33,8 @@ class LogError extends Log {
         );
 }
 
-class LogWarning extends Log {
-  const LogWarning({
+class messageWarning extends Message {
+  const messageWarning({
     required String info,
     String moreInfo = '',
   }) : super(
@@ -42,8 +43,8 @@ class LogWarning extends Log {
         );
 }
 
-class LogInfo extends Log {
-  const LogInfo({
+class messageInfo extends Message {
+  const messageInfo({
     required String info,
     String moreInfo = '',
   }) : super(

@@ -2,14 +2,15 @@ import 'dart:io';
 
 import 'package:keystore_generator/src/lines_to_add.dart';
 
+/// Write content into file
 class WritableFile {
-  final List<String> content;
-  final String path;
-
   const WritableFile({
     required this.content,
     required this.path,
   });
+
+  final List<String> content;
+  final String path;
 
   void addLines(LinesToAdd linesObj) {
     linesObj.addLines(content);

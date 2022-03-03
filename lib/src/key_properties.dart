@@ -12,7 +12,6 @@ class KeyProperties {
   });
 
   final Arguments arguments;
-
   final String keyPropertiesPath = './android/key.properties';
 
   void create() {

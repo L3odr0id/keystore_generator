@@ -6,12 +6,13 @@ mixin LinesToAdd {
 
 class KeyPropertiesVariable with LinesToAdd {
   const KeyPropertiesVariable();
+
   @override
   void addLines(List<String> lines) {
     if (lines.contains(
         "def keystorePropertiesFile = rootProject.file('key.properties')")) {
       print(
-        LogInfo(
+        messageInfo(
           info:
               'You already have keystorePropertiesFile configuration in build.gradle',
         ).decoratedMessage(),
@@ -43,7 +44,7 @@ class ReleaseConfig with LinesToAdd {
 
     // check if found
     if (indexOfBuildTypes == -1) {
-      throw LogError(
+      throw messageError(
         info: 'Impossible to find "buildTypes {" in build.gradle',
       ).decoratedMessage();
     }
@@ -64,6 +65,7 @@ class ReleaseConfig with LinesToAdd {
 
 class SetReleaseConfig with LinesToAdd {
   const SetReleaseConfig();
+
   @override
   void addLines(List<String> lines) {
     bool changed = false;
@@ -77,7 +79,7 @@ class SetReleaseConfig with LinesToAdd {
 
     // check if found
     if (!changed) {
-      throw LogWarning(
+      throw messageWarning(
         info: 'Line "signingConfig signingConfigs.debug" was not found',
       ).decoratedMessage();
     }
