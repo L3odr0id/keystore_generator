@@ -46,7 +46,7 @@ class KeytoolProcess extends RunnableProcess {
     ]);
     // print('KEY CREATOR exit code: ${res.exitCode}');
     if (res.stdout is String && (res.stdout as String).isNotEmpty) {
-      throw messageError(
+      throw MessageError(
         info: 'Bad keystore creating operation',
         moreInfo: res.stdout,
       ).decoratedMessage();

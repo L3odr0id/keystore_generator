@@ -12,10 +12,10 @@ class Arguments {
   String getValueByOption(String option) {
     final pos = args.indexOf(option);
     if (pos == -1) {
-      throw messageError(info: 'Option $option not found').decoratedMessage();
+      throw MessageError(info: 'Option $option not found').decoratedMessage();
     }
     if (args.length <= pos + 1) {
-      throw messageError(info: 'Option $option was not provided')
+      throw MessageError(info: 'Option $option was not provided')
           .decoratedMessage();
     }
     return args[pos + 1];

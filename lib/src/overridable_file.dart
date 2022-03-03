@@ -23,7 +23,7 @@ class OptionalOverwritableFile with OverwritableFile {
       if (arguments.overwriteFlag) {
         file.deleteSync();
       } else {
-        throw messageInfo(
+        throw MessageInfo(
           info:
               'File ${Directory.current.absolute.path}${path.substring(1)} already exists! Use ${arguments.overwriteOptionName} option if you want to override it',
         ).decoratedMessage();
@@ -59,7 +59,7 @@ class NonOverwritableFile with OverwritableFile {
   void check() {
     final file = File(path);
     if (!file.existsSync()) {
-      throw messageError(
+      throw MessageError(
         info:
             '${Directory.current.absolute.path}/${path.substring(1)} does not exist',
       ).decoratedMessage();

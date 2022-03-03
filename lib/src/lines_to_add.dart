@@ -12,7 +12,7 @@ class KeyPropertiesVariable with LinesToAdd {
     if (lines.contains(
         "def keystorePropertiesFile = rootProject.file('key.properties')")) {
       print(
-        messageInfo(
+        MessageInfo(
           info:
               'You already have keystorePropertiesFile configuration in build.gradle',
         ).decoratedMessage(),
@@ -44,7 +44,7 @@ class ReleaseConfig with LinesToAdd {
 
     // check if found
     if (indexOfBuildTypes == -1) {
-      throw messageError(
+      throw MessageError(
         info: 'Impossible to find "buildTypes {" in build.gradle',
       ).decoratedMessage();
     }
@@ -79,7 +79,7 @@ class SetReleaseConfig with LinesToAdd {
 
     // check if found
     if (!changed) {
-      throw messageWarning(
+      throw MessageWarning(
         info: 'Line "signingConfig signingConfigs.debug" was not found',
       ).decoratedMessage();
     }

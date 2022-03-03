@@ -23,8 +23,8 @@ class Message {
   }
 }
 
-class messageError extends Message {
-  const messageError({
+class MessageError extends Message {
+  const MessageError({
     required String info,
     String moreInfo = '',
   }) : super(
@@ -33,8 +33,8 @@ class messageError extends Message {
         );
 }
 
-class messageWarning extends Message {
-  const messageWarning({
+class MessageWarning extends Message {
+  const MessageWarning({
     required String info,
     String moreInfo = '',
   }) : super(
@@ -43,8 +43,8 @@ class messageWarning extends Message {
         );
 }
 
-class messageInfo extends Message {
-  const messageInfo({
+class MessageInfo extends Message {
+  const MessageInfo({
     required String info,
     String moreInfo = '',
   }) : super(

@@ -15,7 +15,7 @@ class GuaranteedDir {
     final dir = Directory(dirName);
     if (!dir.existsSync()) {
       if (needAlert) {
-        throw messageError(
+        throw MessageError(
           info:
               '$dirName folder was not found in ${Directory.current.absolute.path}',
         ).decoratedMessage();
